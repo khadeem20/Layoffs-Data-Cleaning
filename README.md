@@ -34,22 +34,22 @@ The columns were reviewed and discrepancies in the company, industry, date and l
 
 --Step 3-- Remove Null or blank values
 
-  UPDATE layoffs_staging2
-  set industry = NULL
-  WHERE industry = '';
-  
-  SELECT * FROM layoffs_staging2 t1
-  JOIN layoffs_staging2 t2
+    UPDATE layoffs_staging2
+    set industry = NULL
+    WHERE industry = '';
+    
+    SELECT * FROM layoffs_staging2 t1
+    JOIN layoffs_staging2 t2
     ON t1.company = t2.company
-  WHERE(t1.industry is NULL)
-  AND t2.industry IS NOT NULL;
-
-
-  DELETE FROM layoffs_staging2
-  WHERE total_laid_off is Null
-  AND percentage_laid_off is Null;
+    WHERE(t1.industry is NULL)
+    AND t2.industry IS NOT NULL;
+    
+    
+    DELETE FROM layoffs_staging2
+    WHERE total_laid_off is Null
+    AND percentage_laid_off is Null;
   
 --Step 4-- Remove any unnecessary columns
 
-ALTER TABLE layoffs_staging2
-DROP COLUMN row_num;
+    ALTER TABLE layoffs_staging2
+    DROP COLUMN row_num;
