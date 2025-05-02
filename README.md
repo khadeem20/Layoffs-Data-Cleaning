@@ -1,9 +1,18 @@
-# Layoffs-Data-Cleaning
-A Database table containing company records of wide-wide layoffs is put through the "data cleaning process."
+# 🧹 Layoffs Data Cleaning Project
+## Overview
 
-To follow good practise staging tables were used to adjust the data as to prevent incorrect deletion or updates to the "official" table.
+This project focuses on cleaning and preparing a raw database table containing records of global company layoffs. The process was executed in SQL using staging tables to preserve the integrity of the original data and follow best practices in data management.
 
---Step 1-- Remove Duplicate Records
+## 🛠 Tools & Technologies
+
+- SQL (MySQL syntax)
+- Staging Tables
+- Window Functions
+- Data Cleaning Best Practices
+
+## 📊 Cleaning Process
+
+### ✅ Step 1: Remove Duplicate Records
 To remove the duplicate records it was first neccessary to create some sort of identifier for them. As the table had no Id column a window function was used to add a row_num coloumn.
 
     SELECT *,
@@ -12,7 +21,7 @@ To remove the duplicate records it was first neccessary to create some sort of i
     stage, country) as row_num
     from layoffs_staging;
 
---Step 2-- Standardize the data
+### ✅ Step 2: Standardize the data
 The columns were reviewed and discrepancies in the company, industry, date and location columns handled.
 
     Update layoffs_staging2
@@ -32,7 +41,7 @@ The columns were reviewed and discrepancies in the company, industry, date and l
     ALTER TABLE layoffs_staging
     MODIFY COLUMN `date` DATE;
 
---Step 3-- Remove Null or blank values
+### ✅ Step 3: Remove Null or blank values
 
     UPDATE layoffs_staging2
     set industry = NULL
@@ -49,7 +58,7 @@ The columns were reviewed and discrepancies in the company, industry, date and l
     WHERE total_laid_off is Null
     AND percentage_laid_off is Null;
   
---Step 4-- Remove any unnecessary columns
+### ✅ Step 4: Remove any unnecessary columns
 
     ALTER TABLE layoffs_staging2
     DROP COLUMN row_num;
